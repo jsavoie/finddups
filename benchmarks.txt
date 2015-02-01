@@ -1,0 +1,53 @@
+- Ran on directory with no duplication and 3966 files.  These are average run times.
+
+$ time python ~/git/finddup/finddup.py ./
+real    0m0.044s
+user    0m0.028s
+sys     0m0.012s
+
+$ time php ~/git/finddup/finddup.php ./
+real    0m0.047s
+user    0m0.032s
+sys     0m0.012s
+
+$ time perl ~/git/finddup/finddup.pl ./
+real    0m0.072s
+user    0m0.052s
+sys     0m0.016s
+
+- Ran on a directory with 1 duplicate set of 3, and 2 duplicate sets of 2 with 965 large files.  These are average run times.
+
+$ time python ~/git/finddup/finddup.py ./
+real    2m25.549s
+user    0m31.350s
+sys     0m4.704s
+
+$ time perl ~/git/finddup/finddup.pl ./
+real    2m48.422s
+user    0m55.591s
+sys     0m4.864s
+
+$ time php ~/git/finddup/finddup.php ./
+real    2m49.311s
+user    0m59.036s
+sys     0m5.268s
+
+- Ran on a directory with 1097 files and 153 duplicates.
+
+$ time python ~/git/finddup/finddup.py ./
+real    1m35.938s
+user    0m17.233s
+sys     0m3.296s
+
+$ time perl ~/git/finddup/finddup.pl
+real    1m38.587s
+user    0m30.118s
+sys     0m3.236s
+
+$ time php ~/git/finddup/finddup.php ./
+real    1m41.483s
+user    0m29.158s
+sys     0m3.276s
+
+
+Run time complexity is more important than language choice.

@@ -28,8 +28,9 @@ def processdir(path, filelist):
 		elif os.path.isfile(fullpath):
 			filelist[fullpath] = os.path.getsize(fullpath)
 
-for directories in sys.argv[1:]:
-	processdir(directories, filelist)
+for directory in sys.argv[1:]:
+	if os.path.isdir(directory):
+		processdir(directory, filelist)
 
 for filename, filesize in sorted(filelist.items(), key=lambda x:x[1]):
 	# being the same size is a necessary, but not sufficient condition

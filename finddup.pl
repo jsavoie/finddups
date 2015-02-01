@@ -34,7 +34,7 @@ sub processdirectory ($)
   {
 	if (($filename ne "\.") && ($filename ne "\.\."))
 	{
-		my $fullpath = File::Spec->catfile($targetdir, $filename);
+		my $fullpath = File::Spec->join($targetdir, $filename);
 	  	if (-d($fullpath))
 	        {
 	        	processdirectory($fullpath);
@@ -57,11 +57,15 @@ my $file;
 
 foreach my $direntry (@ARGV)
 {
-        processdirectory($direntry);
+	if (-d($direntry))
+	{
+	        processdirectory($direntry);
+	}
 }
 
-foreach $file (sort {$filelist{$b} <=> $filelist{$a} } keys %filelist)
+foreach $file (sort {$filelist{$a} <=> $filelist{$b} } keys %filelist)
 {
+	# being the same size is a necessary, but not sufficient condition
 	if ($lastfilesize == $filelist{$file})
 	{
 		if (sha1sum($file) eq sha1sum($lastfilename))

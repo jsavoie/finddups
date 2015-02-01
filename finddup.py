@@ -23,6 +23,7 @@ def processdir(path, filelist):
 	for filename in os.listdir(path):
 		fullpath = os.path.join(path, filename)
 		if os.path.isdir(fullpath):
+			# further down the rabbit hole you go
 			processdir(fullpath, filelist)
 		elif os.path.isfile(fullpath):
 			filelist[fullpath] = os.path.getsize(fullpath)
@@ -31,6 +32,7 @@ for directories in sys.argv[1:]:
 	processdir(directories, filelist)
 
 for filename, filesize in sorted(filelist.items(), key=lambda x:x[1]):
+	# being the same size is a necessary, but not sufficient condition
 	if filesize == lastfilesize:
 		if sha1sum(filename) == sha1sum(lastfilename):
 			print str(filename) + " and " + str(lastfilename) + " are duplicates"

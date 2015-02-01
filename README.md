@@ -3,3 +3,4 @@
 Example:<br>
 $ python finddup.py ~/pictures ./ ../pictures2<br>
 $ perl finddup.pl ~/pictures ./ ../pictures2<br>
+$ php finddup.php ~/pictures ./ ../pictures2<br>

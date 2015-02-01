@@ -4,7 +4,7 @@ use warnings;
 use Digest::SHA;
 use FileHandle;
 use Getopt::Std;
-use Cwd;
+use File::Spec;
 
 my $context=new Digest::SHA;
 my %filelist;
@@ -25,32 +25,28 @@ sub sha1sum ($)
 sub processdirectory ($)
 {
   my $targetdir = shift;
-  my $startdir = cwd;
   my $dirhandle;
 
-  chdir ($targetdir);
-
-  opendir($dirhandle, ".") || die "couldn't open directory";
+  opendir($dirhandle, $targetdir) || die "couldn't open directory";
   my @direntries = readdir($dirhandle);
 
   foreach my $filename (@direntries)
   {
 	if (($filename ne "\.") && ($filename ne "\.\."))
 	{
-	  	if (-d($filename))
+		my $fullpath = File::Spec->catfile($targetdir, $filename);
+	  	if (-d($fullpath))
 	        {
-	        	processdirectory("$filename");
+	        	processdirectory($fullpath);
 	        }
-		elsif (-f($filename))
+		elsif (-f($fullpath))
 		{
-			my $fullfilename = cwd . "/" . $filename;
-			$filelist{$fullfilename} = (stat($filename))[7];
+			$filelist{$fullpath} = (stat($fullpath))[7];
 		}
 	}
   } #end foreach
 
   closedir($dirhandle);
-  chdir ($startdir);
 } # processdirectory
 
 # main

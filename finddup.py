@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import os
 import sys
 
@@ -16,7 +16,7 @@ def sha1sum(file):
 		while len(buf) > 0:
 			hasher.update(buf)
 			buf = afile.read(BLOCKSIZE)
-	
+
 	return hasher.hexdigest()
 
 def processdir(path, filelist):
@@ -36,7 +36,7 @@ for filename, filesize in sorted(filelist.items(), key=lambda x:x[1]):
 	# being the same size is a necessary, but not sufficient condition
 	if filesize == lastfilesize:
 		if sha1sum(filename) == sha1sum(lastfilename):
-			print str(filename) + " and " + str(lastfilename) + " are duplicates"
+			print (str(filename) + " and " + str(lastfilename) + " are duplicates")
 
 	lastfilename = filename
 	lastfilesize = filesize

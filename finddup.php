@@ -1,4 +1,4 @@
-<?
+<?php
 $filelist = array();
 $lastfilesize = -1;
 $lastfilename = '';
@@ -39,8 +39,8 @@ asort($filelist, SORT_NUMERIC);
 foreach ($filelist as $filename => $filesize)
 {
 	// being the same size is a necessary, but not sufficient condition
-	if ($filesize == $lastfilesize)
-		if (sha1_file($filename) == sha1_file($lastfilename))
+	if ($filesize === $lastfilesize)
+		if (sha1_file($filename) === sha1_file($lastfilename))
 			echo $filename . " and " . $lastfilename . " are duplicates\n";
 
 	$lastfilename = $filename;
